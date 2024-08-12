@@ -1,9 +1,9 @@
 #include <stdio.h>
 #define MAX 50
-int p[MAX], w[MAX], x[MAX];
-double maxprofit;
+int p[MAX], w[MAX];
+double maxprofit, x[MAX];
 int n, m, i;
-void greedyKnapsack(int n, int w[], int p[], int m)
+void greedyKnapsack(int n, int m)
 {
     double ratio[MAX];
 
@@ -15,7 +15,7 @@ void greedyKnapsack(int n, int w[], int p[], int m)
 // Sort items based on the ratio in non-increasing order
     for (i = 0; i < n - 1; i++)
     {
-        for (int j = i + 1; j < n; j++)
+        for (int j = i + 1; j < n-1; j++)
         {
             if (ratio[i] < ratio[j])
             {
@@ -47,7 +47,7 @@ void greedyKnapsack(int n, int w[], int p[], int m)
         else
         {
 // Fractional part of item i is selected
-            x[i] = (m - currentWeight) / (double)w[i];
+            x[i] =(double) (m - currentWeight) / w[i];
             maxprofit += x[i] * p[i];
             break;
         }
@@ -55,7 +55,7 @@ void greedyKnapsack(int n, int w[], int p[], int m)
     printf("Optimal solution for greedy method: %.1f\n", maxprofit);
     printf("Solution vector for greedy method: ");
     for (i = 0; i < n; i++)
-        printf("%d\t", x[i]);
+        printf("%.2f\t", x[i]);
 }
 int main()
 {
@@ -69,6 +69,6 @@ int main()
         scanf("%d", &p[i]);
     printf("Enter the maximum capacity: ");
     scanf("%d", &m);
-    greedyKnapsack(n, w, p, m);
+    greedyKnapsack(n, m);
     return 0;
 }
